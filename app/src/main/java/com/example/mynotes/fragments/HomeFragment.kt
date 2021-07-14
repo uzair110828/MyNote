@@ -61,15 +61,15 @@ class HomeFragment : BaseFragment() {
 
         noteAdapter.setOnClickListener(onClicked)
 
-        homeBinding.searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+        homeBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 var tempArr = ArrayList<Notes>()
-                for (arr in arrNotes){
-                    if (arr.title!!.toLowerCase(Locale.getDefault()).contains(newText.toString())){
+                for (arr in arrNotes) {
+                    if (arr.title!!.toLowerCase(Locale.getDefault()).contains(newText.toString())) {
                         tempArr.add(arr)
                     }
                 }
@@ -86,12 +86,12 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private val onClicked  = object : NoteAdapter.OnItemClickListener{
+    private val onClicked = object : NoteAdapter.OnItemClickListener {
         override fun onClicked(notesId: Int) {
-            var fragment:Fragment
+            var fragment: Fragment
             var bundle = Bundle()
-            bundle.putInt("noteId",notesId)
-            fragment  = CreateFragment.newInstance()
+            bundle.putInt("noteId", notesId)
+            fragment = CreateFragment.newInstance()
             fragment.arguments = bundle
             replaceFragment(fragment, false)
         }
@@ -100,11 +100,6 @@ class HomeFragment : BaseFragment() {
 
     fun replaceFragment(fragment: Fragment, istransition: Boolean) {
         var fragmentTrasition = activity!!.supportFragmentManager.beginTransaction()
-
-//        if (istransition)
-//        {
-//            fragmentTrasition.setCustomAnimations(android.R.anim.slide_out_right,android.R.anim.slide_in_left)
-//        }
         fragmentTrasition.replace(R.id.frame_layout, fragment)
             .addToBackStack(fragment.javaClass.simpleName).commitAllowingStateLoss()
 
